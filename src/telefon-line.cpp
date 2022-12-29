@@ -36,6 +36,8 @@ int main(int argc,char** argv){
 
     //srandom(time(NULL));
     srandom(140421);
+    if(streambuffer)
+        openfile();
 
     for (cont_mean = 0; cont_mean < MEAN; ++cont_mean) {
         for (cont_simu = 0; cont_simu < simulaciones; ++cont_simu) {
