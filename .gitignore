@@ -1,0 +1,7 @@
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CMakeFiles/*
+CMakeCache.txt
+resultados/*.txt
+resultados/graphs/*
