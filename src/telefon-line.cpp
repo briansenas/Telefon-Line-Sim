@@ -43,7 +43,7 @@ int main(int argc,char** argv){
         for (cont_simu = 0; cont_simu < simulaciones; ++cont_simu) {
             if(streambuffer==1){
                 progress_bar(
-                        raNge1(cont_simu+i*simulaciones,MEAN*simulaciones)
+                        raNge1(cont_simu+cont_mean*simulaciones,MEAN*simulaciones)
                         );
             }
             inicializacion();
@@ -173,26 +173,28 @@ void fin_simulacion(){
     informe[cont_simu][2] = llamadas_total;
     informe[cont_simu][3] = llamadas_perdidas;
     informe[cont_simu][4] = llamadas_perdidas/llamadas_total;
-    stringstream oss;
-    if(streambuffer==0){
-        if(cont_simu==0){
-            oss << "Ocupadas" << setw(20) << "Proporcion" << setw(20)
-                << "Total llamadas" << setw(20) << "Pérdidas"
-                << setw(20) << "Proporción" << endl;
+    if(DEBUG && NOT_ONLY_MEANS){
+        stringstream oss;
+        if(streambuffer==0){
+            if(cont_simu==0){
+                oss << "Ocupadas" << setw(20) << "Proporcion" << setw(20)
+                    << "Total llamadas" << setw(20) << "Pérdidas"
+                    << setw(20) << "Proporción" << endl;
+            }
+            oss << setprecision(2) << fixed << informe[cont_simu][0]
+                << setw(20) << informe[cont_simu][1]
+                << setw(20) << informe[cont_simu][2]
+                << setw(20) << informe[cont_simu][3]
+                << setw(20) << informe[cont_simu][4] << endl;
+            cout << oss.str();
+        }else {
+            oss << setprecision(2) << fixed << informe[cont_simu][0]
+                << setw(20) << informe[cont_simu][1]
+                << setw(20) << informe[cont_simu][2]
+                << setw(20) << informe[cont_simu][3]
+                << setw(20) << informe[cont_simu][4] << endl;
+            myfile << oss.str();
         }
-        oss << setprecision(2) << fixed << informe[cont_simu][0]
-             << setw(20) << informe[cont_simu][1]
-             << setw(20) << informe[cont_simu][2]
-             << setw(20) << informe[cont_simu][3]
-             << setw(20) << informe[cont_simu][4] << endl;
-        cout << oss.str();
-    }else if(DEBUG && NOT_ONLY_MEAN){
-        oss << setprecision(2) << fixed << informe[cont_simu][0]
-             << setw(20) << informe[cont_simu][1]
-             << setw(20) << informe[cont_simu][2]
-             << setw(20) << informe[cont_simu][3]
-             << setw(20) << informe[cont_simu][4] << endl;
-        myfile << oss.str();
     }
 }
 
@@ -230,12 +232,16 @@ void generador_informes(unsigned int simulaciones){
             << setw(10) << media[4] << setw(10) << dt[4] << endl;
         cout << oss.str();
     }else{
+        if(NOT_ONLY_MEANS)
+            myfile << "\n\n";
         oss << setprecision(2) << fixed << media[0] << setw(10) << dt[0]
             << setw(10) << media[1] << setw(10) << dt[1]
             << setw(10) << media[2] << setw(10) << dt[2]
             << setw(10) << media[3] << setw(10) << dt[3]
             << setw(10) << media[4] << setw(10) << dt[4] << endl;
         myfile << oss.str();
+        if(NOT_ONLY_MEANS)
+            myfile << "\n\n";
     }
 
 

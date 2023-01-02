@@ -4,7 +4,7 @@
 #define SUCESO_FIN_LLAMADA 1
 #define SUCESO_FIN_SIMULACION 2
 #define DEBUG 1
-#define NOT_ONLY_MEAN 1
+#define NOT_ONLY_MEANS 1
 #define AB 12
 #define BA 21
 #include <iostream>
